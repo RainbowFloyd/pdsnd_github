@@ -24,22 +24,17 @@ def get_filters():
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
     print('Hello! Let\'s explore some US bikeshare data!')
-    # TO DO: get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
     while True:
         print('Which city would you like to explore? (chicago, new york city, washington)')
         city = str(input()).lower()
         if city in cities:
             break
 
-    # TO DO: get user input for month (all, january, february, ... , june)
-
     while True:
         print('Which month(s) would you like to explore? (all, january, february, ... , june)')
         month = str(input()).lower()
         if month in allowed_months:
             break
-
-    # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)
 
     while True:
         print('Which day(s) would you like to expore? (all, monday, tuesday, ... sunday)')
@@ -63,20 +58,20 @@ def load_data(city, month, day):
     """
 
     df = pd.read_csv(CITY_DATA[city])
-    
+
     df['Start Time'] = pd.to_datetime(df['Start Time'])
-    
+
     df['month'] = df['Start Time'].dt.month
-    
+
     df['dow'] = df['Start Time'].dt.weekday_name
-   
-    
+
+
     if month != 'all':
         month_num = allowed_months.index(month)
         #print('here ' + str(month_num))
         #print(allowed_months[month_num])
         df = df[df['month'] == month_num]
-        
+
     if day != 'all':
         df = df[df['dow'] == day.title()]
 
@@ -90,23 +85,18 @@ def time_stats(df):
     print('\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
 
-    # TO DO: display the most common month
-    
     month_count = pd.value_counts(df['month'])
     common_month = allowed_months[month_count.idxmax()].title()
     print('Most common month is {}'.format(common_month))
 
-    # TO DO: display the most common day of week  
-    
     day_count = pd.value_counts(df['dow'])
     common_dow = day_count.idxmax()
     print('Most common day of the week is {}'.format(common_dow))
 
-    # TO DO: display the most common start hour
     hour_count = pd.value_counts(df['Start Time'].dt.hour)
     common_hour = hour_count.idxmax()
     print('Most comman hour in {}:00'.format(common_hour))
-    
+
 
 
     print("\nThis took %s seconds." % (time.time() - start_time))
@@ -119,19 +109,19 @@ def station_stats(df):
     print('\nCalculating The Most Popular Stations and Trip...\n')
     start_time = time.time()
 
-    # TO DO: display most commonly used start station
+
     start_count = pd.value_counts(df['Start Station'])
     common_start = start_count.idxmax()
     print('Most common start station is {}'.format(common_start))
 
 
-    # TO DO: display most commonly used end station
+
     end_count = pd.value_counts(df['End Station'])
     common_end = end_count.idxmax()
     print('Most common end station is {}'.format(common_end))
 
 
-    # TO DO: display most frequent combination of start station and end station trip
+
     common_both = df.groupby(['Start Station','End Station']).size().idxmax()
     print('Most common start/end stations are {}'.format(common_both))
 
@@ -146,12 +136,12 @@ def trip_duration_stats(df):
     print('\nCalculating Trip Duration...\n')
     start_time = time.time()
 
-    # TO DO: display total travel time
+
     total_travel_time = df['Trip Duration'].sum()
     print('Total time traveled is {} seconds, or {} minutes'.format(total_travel_time, total_travel_time / 60))
 
 
-    # TO DO: display mean travel time
+
     mean_travel_time = df['Trip Duration'].mean()
     print('Mean time traveled is {} seconds, or {} minutes'.format(mean_travel_time, mean_travel_time / 60))
 
@@ -165,17 +155,17 @@ def user_stats(df):
     print('\nCalculating User Stats...\n')
     start_time = time.time()
 
-    # TO DO: Display counts of user types
+
     user_type_count = pd.value_counts(df['User Type'])
     print('User types\n{}'.format(user_type_count))
 
 
-    # TO DO: Display counts of gender
+
     gender_count = pd.value_counts(df['Gender'])
     print('Male(s): {} \nFemale(s): {}'.format(gender_count['Male'], gender_count['Female']))
 
 
-    # TO DO: Display earliest, most recent, and most common year of birth
+
     min_birth = df['Birth Year'].min()
     max_birth = df['Birth Year'].max()
     common_birth = pd.value_counts(df['Birth Year']).idxmax()
