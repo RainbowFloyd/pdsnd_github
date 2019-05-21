@@ -31,7 +31,7 @@ def get_filters():
             break
 
     while True:
-        print('Which month(s) would you like to explore? (all, january, february, ... , june)')
+        print('Which month(s) would you like to explore? (all, january, february, ... june)')
         month = str(input()).lower()
         if month in allowed_months:
             break
