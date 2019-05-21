@@ -13,6 +13,11 @@ chicago.csv
 new_york_city.csv
 washington.csv
 
+### How to use
+- Run script by entering "python bikeshare.py" into a terminal (eg. Git Bash) while in the correct directory.
+- When prompted, enter in your desired city and time frame.
+- Choose to restart or end the script after receiving data.
+
 ### Credits
 Stack Overflow
 Python offical documetation
