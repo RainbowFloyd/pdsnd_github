@@ -65,7 +65,6 @@ def load_data(city, month, day):
 
     df['dow'] = df['Start Time'].dt.weekday_name
 
-
     if month != 'all':
         month_num = allowed_months.index(month)
         #print('here ' + str(month_num))
@@ -77,7 +76,6 @@ def load_data(city, month, day):
 
     print(df.head())
     return df
-
 
 def time_stats(df):
     """Displays statistics on the most frequent times of travel."""
@@ -97,11 +95,8 @@ def time_stats(df):
     common_hour = hour_count.idxmax()
     print('Most comman hour in {}:00'.format(common_hour))
 
-
-
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
-
 
 def station_stats(df):
     """Displays statistics on the most popular stations and trip."""
@@ -109,26 +104,19 @@ def station_stats(df):
     print('\nCalculating The Most Popular Stations and Trip...\n')
     start_time = time.time()
 
-
     start_count = pd.value_counts(df['Start Station'])
     common_start = start_count.idxmax()
     print('Most common start station is {}'.format(common_start))
-
-
 
     end_count = pd.value_counts(df['End Station'])
     common_end = end_count.idxmax()
     print('Most common end station is {}'.format(common_end))
 
-
-
     common_both = df.groupby(['Start Station','End Station']).size().idxmax()
     print('Most common start/end stations are {}'.format(common_both))
 
-
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
-
 
 def trip_duration_stats(df):
     """Displays statistics on the total and average trip duration."""
@@ -136,11 +124,8 @@ def trip_duration_stats(df):
     print('\nCalculating Trip Duration...\n')
     start_time = time.time()
 
-
     total_travel_time = df['Trip Duration'].sum()
     print('Total time traveled is {} seconds, or {} minutes'.format(total_travel_time, total_travel_time / 60))
-
-
 
     mean_travel_time = df['Trip Duration'].mean()
     print('Mean time traveled is {} seconds, or {} minutes'.format(mean_travel_time, mean_travel_time / 60))
@@ -148,33 +133,25 @@ def trip_duration_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
-
 def user_stats(df):
     """Displays statistics on bikeshare users."""
 
     print('\nCalculating User Stats...\n')
     start_time = time.time()
 
-
     user_type_count = pd.value_counts(df['User Type'])
     print('User types\n{}'.format(user_type_count))
 
-
-
     gender_count = pd.value_counts(df['Gender'])
     print('Male(s): {} \nFemale(s): {}'.format(gender_count['Male'], gender_count['Female']))
-
-
 
     min_birth = df['Birth Year'].min()
     max_birth = df['Birth Year'].max()
     common_birth = pd.value_counts(df['Birth Year']).idxmax()
     print('Earliest birth year is {}\nMost recent birth year is {}\nMost common birth year is {}'.format(min_birth, max_birth, common_birth))
 
-
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
-
 
 def main():
     while True:
@@ -189,7 +166,6 @@ def main():
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
             break
-
 
 if __name__ == "__main__":
 	main()
